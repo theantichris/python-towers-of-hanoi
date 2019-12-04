@@ -25,13 +25,16 @@ def get_input():
         if user_input == choices[i]:
           return stacks[i]
 
+def get_optimal_moves(num_disks):
+    num_optimal_moves = 2 ** num_disks - 1
+    print("\nThe fastest you can solve this game is in {} moves.".format(num_optimal_moves))
+    return num_optimal_moves
+
 # Play game
 
 num_user_moves = 0
 num_disks = get_disks()
-
-num_optimal_moves = 2 ** num_disks - 1
-print("\nThe fastest you can solve this game is in {} moves.".format(num_optimal_moves))
+num_optimal_moves = get_optimal_moves(num_disks)
 
 while stacks[2].get_size() != num_disks:
   print("\n...Current Stacks...")
