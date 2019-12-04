@@ -15,46 +15,42 @@ def get_disks():
         stacks[0].push(i)
     return num_disks
 
-def get_input():
-  choices = [stack.get_name()[0] for stack in stacks]
+def get_optimal_moves(num_disks):
+    num_optimal_moves = 2 ** num_disks - 1
+    print("\nThe fastest you can solve this game is in {} moves.".format(
+        num_optimal_moves))
+    return num_optimal_moves
 
+def get_input(x):
+  choices = [stack.get_name()[0] for stack in stacks]
   while True:
-    user_input = input("").upper()
+    user_input = input("\nWhich stack do you want to move {} ([L]eft, [R]ight, [M]iddle): ".format(x)).upper()
     if user_input in choices:
       for i in range(len(stacks)):
         if user_input == choices[i]:
           return stacks[i]
-
-def get_optimal_moves(num_disks):
-    num_optimal_moves = 2 ** num_disks - 1
-    print("\nThe fastest you can solve this game is in {} moves.".format(num_optimal_moves))
-    return num_optimal_moves
-
-# Play game
 
 num_user_moves = 0
 num_disks = get_disks()
 num_optimal_moves = get_optimal_moves(num_disks)
 
 while stacks[2].get_size() != num_disks:
-  print("\n...Current Stacks...")
+  print("\n...Current Stacks...\n")
   for stack in stacks:
     stack.print_items()
 
   while True:
-    print("\nWhich stack do you want to move from ({L}eft, {R}ight, {M}iddle): ")
-    from_stack = get_input()
-    print("\nWhich stack do you want to move to ({L}eft, {R}ight, {M}iddle): ")
-    to_stack = get_input()
+    from_stack = get_input("from")
+    to_stack = get_input("to")
 
     if from_stack.is_empty():
-      print("\n\nInvalid Move. Try Again.")
+      print("\n\nThat stack is empty. Try Again.")
     elif to_stack.is_empty() or from_stack.peek() < to_stack.peek():
       disk = from_stack.pop()
       to_stack.push(disk)
       num_user_moves += 1
       break
     else:
-      print("\n\nInvalid Movie. Try Again.")
+      print("\n\nYou cannot move a disk onto a smaller one. Try Again.")
 
 print("\n\nYou completed the game in {} moves, and the optimal number of moves is {}.".format(num_user_moves, num_optimal_moves))
