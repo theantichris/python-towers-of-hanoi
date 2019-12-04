@@ -21,10 +21,6 @@ def get_input():
   choices = [stack.get_name()[0] for stack in stacks]
 
   while True:
-    for i in range(len(stacks)):
-      name = stacks[i].get_name()
-      letter = choices[i]
-      print("Enter {} for {}".format(letter, name))
     user_input = input("").upper()
     if user_input in choices:
       for i in range(len(stacks)):
@@ -40,9 +36,9 @@ while stacks[2].get_size() != num_disks:
     stack.print_items()
 
   while True:
-    print("\nWhich stack do you want to move from?\n")
+    print("\nWhich stack do you want to move from ({L}eft, {R}ight, {M}iddle): ")
     from_stack = get_input()
-    print("\nWhich stack do you want to move to?\n")
+    print("\nWhich stack do you want to move to ({L}eft, {R}ight, {M}iddle): ")
     to_stack = get_input()
 
     if from_stack.is_empty():
