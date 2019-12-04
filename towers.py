@@ -3,19 +3,16 @@ from stack import Stack
 print ("Let's play Towers of Hanoi!\n")
 
 stacks = []
-left_stack = Stack("Left")
-middle_stack = Stack("Middle")
-right_stack = Stack("Right")
-stacks.append(left_stack)
-stacks.append(middle_stack)
-stacks.append(right_stack)
+stacks.append(Stack("Left"))
+stacks.append(Stack("Middle"))
+stacks.append(Stack("Right"))
 
 num_disks = int(input("How many disks do you want to play with: "))
 while num_disks < 3:
     num_disks = int(input("Enter a number greater than or equal to 3: "))
 
 for i in range(num_disks, 0, -1):
-    left_stack.push(i)
+    stacks[0].push(i)
 
 num_optimal_moves = 2 ** num_disks - 1
 print("\nThe fastest you can solve this game is in {} moves.".format(num_optimal_moves))
@@ -37,7 +34,7 @@ def get_input():
 
 num_user_moves = 0
 
-while right_stack.get_size() != num_disks:
+while stacks[2].get_size() != num_disks:
   print("\n...Current Stacks...")
   for stack in stacks:
     stack.print_items()
